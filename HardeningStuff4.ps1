@@ -1151,20 +1151,6 @@ $name="RunAsPPL"
 $value=1
 SetRegistryHardening ($registrypath,$name,$value)
 
-# Ensure Symantec Endpoint Protection Agent is installed and is at least version 12. THIS IS NOT FINISHED
-# parse below command, compare displayname with Symantec Endpoint and check if ver > or equal to 12
-write-host "[+] Checking version of Symantec Endpoint Protection Agent version"
-$displayname=Get-ItemProperty hklm:\software\wow6432node\microsoft\windows\currentversion\uninstall\* | select-object displayname
-$versionname=Get-ItemProperty hklm:\software\wow6432node\microsoft\windows\currentversion\uninstall\* | select-object displayversion
-
-if ($displayname -like '*Symantec Endpoint*' -And $versionname -like '*12.*' -Or $versionname -like '*13.*')
-{
-write-host "Symantec Endpoint installed with valid version"
-}
-Else
-{
-write-host "Symantec Endpoint invalid version or not installed"
-}
 #Turning off Windows firewall for all profiles (Private,Public and Domain)
 write-host "Setting Windows Firewall to off..."
 netsh advfirewall set allprofiles state off
